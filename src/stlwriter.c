@@ -19,13 +19,13 @@
 
 // ************************************************************
 // ************************************************************
-// ** 
+// **
 // ** stlwriter.c
-// ** 
+// **
 // ** Thomas P. Sullivan and Eric J. Fallon
-// ** 
+// **
 // ** STL File format utilities
-// ** 
+// **
 // ************************************************************
 // ************************************************************
 
@@ -34,40 +34,40 @@
 
 // Appends a triangle to the STL file in either binary or
 // ASCII format
- void stlwrite(FILE *out,
+void stlwrite(FILE *out,
               const int binaryOutput,
-              const coordinate *v1, 
-              const coordinate *v2, 
+              const coordinate *v1,
+              const coordinate *v2,
               const coordinate *v3,
               const coordinate *normal)
- {
+{
     short dummy = 0;
 
     if (binaryOutput)
     {
-       //Write binary
-       fwrite(&normal->x, sizeof(float), (size_t) 1, out);
-       fwrite(&normal->y, sizeof(float), (size_t) 1, out);
-       fwrite(&normal->z, sizeof(float), (size_t) 1, out);
-       fwrite(&v1->x, sizeof(float), (size_t) 1, out);
-       fwrite(&v1->y, sizeof(float), (size_t) 1, out);
-       fwrite(&v1->z, sizeof(float), (size_t) 1, out);
-       fwrite(&v2->x, sizeof(float), (size_t) 1, out);
-       fwrite(&v2->y, sizeof(float), (size_t) 1, out);
-       fwrite(&v2->z, sizeof(float), (size_t) 1, out);
-       fwrite(&v3->x, sizeof(float), (size_t) 1, out);
-       fwrite(&v3->y, sizeof(float), (size_t) 1, out);
-       fwrite(&v3->z, sizeof(float), (size_t) 1, out);
-       fwrite(&dummy, sizeof(short), (size_t) 1, out);  //Atribute byte count (should be zero...at least, that's the recommendation)
+        //Write binary
+        fwrite(&normal->x, sizeof(float), (size_t) 1, out);
+        fwrite(&normal->y, sizeof(float), (size_t) 1, out);
+        fwrite(&normal->z, sizeof(float), (size_t) 1, out);
+        fwrite(&v1->x, sizeof(float), (size_t) 1, out);
+        fwrite(&v1->y, sizeof(float), (size_t) 1, out);
+        fwrite(&v1->z, sizeof(float), (size_t) 1, out);
+        fwrite(&v2->x, sizeof(float), (size_t) 1, out);
+        fwrite(&v2->y, sizeof(float), (size_t) 1, out);
+        fwrite(&v2->z, sizeof(float), (size_t) 1, out);
+        fwrite(&v3->x, sizeof(float), (size_t) 1, out);
+        fwrite(&v3->y, sizeof(float), (size_t) 1, out);
+        fwrite(&v3->z, sizeof(float), (size_t) 1, out);
+        fwrite(&dummy, sizeof(short), (size_t) 1, out);  //Atribute byte count (should be zero...at least, that's the recommendation)
     }
     else
     {
-       fprintf(out,"   facet normal %f %f %f\n", normal->x, normal->y, normal->z);
-       fprintf(out,"      outer loop\n");
-       fprintf(out,"         vertex %f %f %f\n", v1->x, v1->y, v1->z);
-       fprintf(out,"         vertex %f %f %f\n", v2->x, v2->y, v2->z);
-       fprintf(out,"         vertex %f %f %f\n", v3->x, v3->y, v3->z);
-       fprintf(out,"      endloop\n");
-       fprintf(out,"   endfacet\n");
+        fprintf(out,"   facet normal %f %f %f\n", normal->x, normal->y, normal->z);
+        fprintf(out,"      outer loop\n");
+        fprintf(out,"         vertex %f %f %f\n", v1->x, v1->y, v1->z);
+        fprintf(out,"         vertex %f %f %f\n", v2->x, v2->y, v2->z);
+        fprintf(out,"         vertex %f %f %f\n", v3->x, v3->y, v3->z);
+        fprintf(out,"      endloop\n");
+        fprintf(out,"   endfacet\n");
     }
- }
+}

@@ -19,13 +19,13 @@
 
 // ************************************************************
 // ************************************************************
-// ** 
+// **
 // ** geometry.c
-// ** 
+// **
 // ** Thomas P. Sullivan and Eric J. Fallon
-// ** 
+// **
 // ** Misc geometry functions
-// ** 
+// **
 // ************************************************************
 // ************************************************************
 
@@ -34,62 +34,62 @@
 
 coordinate calcNormal2(const float v, const float a, const float b)
 {
-   coordinate normal, uu, vv;
+    coordinate normal, uu, vv;
 
-   //Take the differences to create VERTEX, A and B for Cross Product
-   uu.x = a - v;
-   uu.y = a - v;
-   uu.z = a - v;
+    //Take the differences to create VERTEX, A and B for Cross Product
+    uu.x = a - v;
+    uu.y = a - v;
+    uu.z = a - v;
 
-   vv.x = b - v;
-   vv.y = b - v;
-   vv.z = b - v;
+    vv.x = b - v;
+    vv.y = b - v;
+    vv.z = b - v;
 
-   //Compute the normal
-   normal.x = (uu.y * vv.z) - (uu.z * vv.y);
-   normal.y = (uu.x * vv.z) - (uu.z * vv.x);
-   normal.z = (uu.x * vv.y) - (uu.y * vv.x);
+    //Compute the normal
+    normal.x = (uu.y * vv.z) - (uu.z * vv.y);
+    normal.y = (uu.x * vv.z) - (uu.z * vv.x);
+    normal.z = (uu.x * vv.y) - (uu.y * vv.x);
 
-   return normal;
+    return normal;
 }
 
 
 coordinate calcNormal22(coordinate *v, coordinate *a, coordinate *b)
 {
-   static coordinate normal, uu, vv;
-   static coordinate t;
+    static coordinate normal, uu, vv;
+    static coordinate t;
 
-   //Take the differences to create VERTEX, A and B for Cross Product
-   uu.x = a->x - v->x;
-   uu.y = a->y - v->y;
-   uu.z = a->z - v->z;
+    //Take the differences to create VERTEX, A and B for Cross Product
+    uu.x = a->x - v->x;
+    uu.y = a->y - v->y;
+    uu.z = a->z - v->z;
 
-   vv.x = b->x - v->x;
-   vv.y = b->y - v->y;
-   vv.z = b->z - v->z;
+    vv.x = b->x - v->x;
+    vv.y = b->y - v->y;
+    vv.z = b->z - v->z;
 
-   //Compute the normal
-/* tps 5-30-2017
-   normal.x = (uu.y * vv.z) - (uu.z * vv.y);
-   normal.y = -1*((uu.x * vv.z) - (uu.z * vv.x));
-   normal.z = (uu.x * vv.y) - (uu.y * vv.x);
-*/
-   normal.x = (uu.y * vv.z) - (uu.z * vv.y);
-   normal.y = ((uu.z * vv.x) - (uu.x * vv.z));
-   normal.z = (uu.x * vv.y) - (uu.y * vv.x);
+    //Compute the normal
+    /* tps 5-30-2017
+       normal.x = (uu.y * vv.z) - (uu.z * vv.y);
+       normal.y = -1*((uu.x * vv.z) - (uu.z * vv.x));
+       normal.z = (uu.x * vv.y) - (uu.y * vv.x);
+    */
+    normal.x = (uu.y * vv.z) - (uu.z * vv.y);
+    normal.y = ((uu.z * vv.x) - (uu.x * vv.z));
+    normal.z = (uu.x * vv.y) - (uu.y * vv.x);
 
-   //For now, make the normal vector zero and let the program(s) fix it
+    //For now, make the normal vector zero and let the program(s) fix it
 //#define CALC_NORMAL
 #ifdef CALC_NORMAL
-   t.x = normal.x;
-   t.y = normal.y;
-   t.z = normal.z;
+    t.x = normal.x;
+    t.y = normal.y;
+    t.z = normal.z;
 #else
-   t.x = 0.0;
-   t.y = 0.0;
-   t.z = 0.0;
+    t.x = 0.0;
+    t.y = 0.0;
+    t.z = 0.0;
 #endif
-   return t;
+    return t;
 }
 
 //This method, straight off the internet (stack exchange), says:
@@ -107,14 +107,14 @@ coordinate calcNormal22(coordinate *v, coordinate *a, coordinate *b)
 
 coordinate calcNormal(coordinate *p1, coordinate *p2, coordinate *p3)
 {
-   //static coordinate normal, uu, vv;
-   static coordinate t;
+    //static coordinate normal, uu, vv;
+    static coordinate t;
 
-   t.x = ((p2->y - p1->y)*(p3->z - p1->z))-((p3->y - p1->y)*(p2->z - p1->z));
-   t.y = ((p2->z - p1->z)*(p3->x - p1->x))-((p2->x - p1->x)*(p3->z - p1->z));
-   t.z = ((p2->x - p1->x)*(p3->y - p1->y))-((p3->x - p1->x)*(p2->y - p1->y));
+    t.x = ((p2->y - p1->y)*(p3->z - p1->z))-((p3->y - p1->y)*(p2->z - p1->z));
+    t.y = ((p2->z - p1->z)*(p3->x - p1->x))-((p2->x - p1->x)*(p3->z - p1->z));
+    t.z = ((p2->x - p1->x)*(p3->y - p1->y))-((p3->x - p1->x)*(p2->y - p1->y));
 
-   return t;
+    return t;
 }
 
 // From: http://home.att.net/~srschmitt/great_circle_route.html (page doesn't seem to exist anymore)
@@ -129,46 +129,46 @@ coordinate calcNormal(coordinate *p1, coordinate *p2, coordinate *p3)
 
 // ****************************************************
 // ** Function:         distance
-// ** 
-// ** Parameters: 
+// **
+// ** Parameters:
 // **                           double precision start latitude
 // **                           double precision start longitude
 // **                           double precision end latitude
 // **                           double precision end longitude
-// ** Returns: 
+// ** Returns:
 // **                           double precision distance in meters
-// ** 
+// **
 // ** Notes: These are angles in radians NOT degrees
-// ** 
+// **
 // ****************************************************
 double distance(double lat1, double lon1, double lat2, double lon2)
 {
 
-   double F = (lat1 + lat2) / 2.0;
-   double G = (lat1 - lat2) / 2.0;
-   double L = (lon1 - lon2) / 2.0;
+    double F = (lat1 + lat2) / 2.0;
+    double G = (lat1 - lat2) / 2.0;
+    double L = (lon1 - lon2) / 2.0;
 
-   double sinG2 = sin(G) * sin(G);
-   double cosG2 = cos(G) * cos(G);
-   double sinF2 = sin(F) * sin(F);
-   double cosF2 = cos(F) * cos(F);
-   double sinL2 = sin(L) * sin(L);
-   double cosL2 = cos(L) * cos(L);
+    double sinG2 = sin(G) * sin(G);
+    double cosG2 = cos(G) * cos(G);
+    double sinF2 = sin(F) * sin(F);
+    double cosF2 = cos(F) * cos(F);
+    double sinL2 = sin(L) * sin(L);
+    double cosL2 = cos(L) * cos(L);
 
-   double S = sinG2 * cosL2 + cosF2 * sinL2;
-   double C = cosG2 * cosL2 + sinF2 * sinL2;
+    double S = sinG2 * cosL2 + cosF2 * sinL2;
+    double C = cosG2 * cosL2 + sinF2 * sinL2;
 
-   double w = atan(sqrt(S/C));
-   double R = sqrt(S*C)/w;
+    double w = atan(sqrt(S/C));
+    double R = sqrt(S*C)/w;
 
-   double a = 6378.137;                    // WGS-84 equatorial radius
-   double f = 1.0/298.257223563;           // WGS-84 ellipsoid flattening factor
+    double a = 6378.137;                    // WGS-84 equatorial radius
+    double f = 1.0/298.257223563;           // WGS-84 ellipsoid flattening factor
 
-   double D = 2*w*a;
-   double H1 = (3*R - 1)/(2*C);
-   double H2 = (3*R + 2)/(2*S);
+    double D = 2*w*a;
+    double H1 = (3*R - 1)/(2*C);
+    double H2 = (3*R + 2)/(2*S);
 
-   double dist = D * (1 + f*H1*sinF2*cosG2 - f*H2*cosF2*sinG2);
+    double dist = D * (1 + f*H1*sinF2*cosG2 - f*H2*cosF2*sinG2);
 
-   return dist;
+    return dist;
 }

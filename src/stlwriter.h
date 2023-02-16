@@ -19,32 +19,28 @@
 
 // ************************************************************
 // ************************************************************
-// ** 
-// ** geometry.h
-// ** 
+// **
+// ** stlwriter.h
+// **
 // ** Thomas P. Sullivan and Eric J. Fallon
-// ** 
-// ** Misc geometry functions
-// ** 
+// **
+// ** STL File format utilities
+// **
 // ************************************************************
 // ************************************************************
 
+#ifndef _STLWRITER_H
+#define _STLWRITER_H
 
-#ifndef _GEOMETRY_H
-#define _GEOMETRY_H
+#include "geometry.h"
 
-
-// 3 dimensional Cartesian coordinate 
-typedef struct {
-  float x, y, z;
-} coordinate;
-
-
-// calculates normal vector
-coordinate calcNormal(coordinate *v, coordinate *a, coordinate *b);
-//coordinate calcNormal(const float v, const float a, const float b);
-
-// Computes Great Circle Distance
-double distance(double lat1, double lon1, double lat2, double lon2);
+// Appends a triangle to the STL file in either binary or
+// ASCII format
+void stlwrite(FILE *out,
+              const int binaryOutput,
+              const coordinate *v1,
+              const coordinate *v2,
+              const coordinate *v3,
+              const coordinate *normal);
 
 #endif
